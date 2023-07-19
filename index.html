@@ -1,9 +1,77 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Powered By Sunny</title>
-  </head>
-  <body>
-    <img style="display: block; margin-left: auto; margin-right: auto; width: 50%;" src="https://paketo.io/images/paketo-logo-full-color.png"></img>
-  </body>
-</html>`
+<head>
+  <title>Guess the Number</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding-top: 100px;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    p {
+      color: #666;
+      line-height: 1.5;
+    }
+
+    input {
+      padding: 10px;
+      font-size: 16px;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Guess the Number</h1>
+
+  <p>Try to guess the number between 1 and 100:</p>
+
+  <input type="number" id="guess" min="1" max="100" required>
+  <button onclick="checkGuess()">Guess</button>
+
+  <p id="message"></p>
+
+  <script>
+    var targetNumber = Math.floor(Math.random() * 100) + 1;
+    var attempts = 0;
+
+    function checkGuess() {
+      var guessInput = document.getElementById("guess");
+      var guess = parseInt(guessInput.value);
+      var messageElement = document.getElementById("message");
+
+      if (isNaN(guess)) {
+        messageElement.textContent = "Invalid input. Please enter a valid number.";
+      } else if (guess < 1 || guess > 100) {
+        messageElement.textContent = "Please enter a number between 1 and 100.";
+      } else {
+        attempts++;
+
+        if (guess === targetNumber) {
+          messageElement.textContent = "Congratulations! You guessed the number in " + attempts + " attempt(s).";
+          guessInput.disabled = true;
+        } else if (guess < targetNumber) {
+          messageElement.textContent = "Try a higher number.";
+        } else {
+          messageElement.textContent = "Try a lower number.";
+        }
+      }
+
+      guessInput.value = "";
+    }
+  </script>
+</body>
+</html>
